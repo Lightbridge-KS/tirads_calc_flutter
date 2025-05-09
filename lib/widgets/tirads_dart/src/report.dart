@@ -12,8 +12,8 @@ class TIRADSReport {
   late Map<String, dynamic> pt;
   late Map<String, String> lv;
   late Map<String, String> desc;
-  late dynamic shouldFna;
-  late dynamic shouldFollow;
+  late double fnaThresholdCm;
+  late double followUpThresholdCm;
 
   /// Constructor for TIRADSReport
   /// 
@@ -60,12 +60,8 @@ class TIRADSReport {
   ///     - "macro-calc": Macrocalcification (1 point)
   ///     - "rim-calc": Rim calcification (2 points)
   ///     - "punctate": Punctate echogenic foci (3 points)
-  /// 
-  /// sizeCm : double?
-  ///     Size of the nodule in centimeters, optional.
-  ///     Required for precise FNA and follow-up recommendations.
   TIRADSReport(String composition, String echogenicity, String shape, 
-              String margin, List<String> echogenicFoci, [double? sizeCm]) {
+              String margin, List<String> echogenicFoci) {
     // Validate inputs
     argsCheckTirads(composition, echogenicity, shape, margin, echogenicFoci);
     
@@ -74,21 +70,19 @@ class TIRADSReport {
     
     final int ptTot = pt["points_tot"];
     
-    // FNA logic
+    // Set thresholds based on TI-RADS level
     if (ptTot < 3) { // TR1 or TR2
-      shouldFna = false;
-      shouldFollow = false;
-    } else { // TR3 or more
-      shouldFna = sizeCm != null ? 
-          ((ptTot == 3 && sizeCm >= 2.5) ||
-           (4 <= ptTot && ptTot <= 6 && sizeCm >= 1.5) ||
-           (ptTot >= 7 && sizeCm >= 1)) : "?";
-
-      // Follow-up logic
-      shouldFollow = sizeCm != null ? 
-          ((ptTot == 3 && sizeCm >= 1.5) ||
-           (4 <= ptTot && ptTot <= 6 && sizeCm >= 1) ||
-           (ptTot >= 7 && sizeCm >= 0.5)) : "?";
+      fnaThresholdCm = double.infinity; // No FNA needed
+      followUpThresholdCm = double.infinity; // No follow-up needed
+    } else if (ptTot == 3) { // TR3
+      fnaThresholdCm = 2.5;
+      followUpThresholdCm = 1.5;
+    } else if (ptTot >= 4 && ptTot <= 6) { // TR4
+      fnaThresholdCm = 1.5;
+      followUpThresholdCm = 1.0;
+    } else { // TR5 (ptTot >= 7)
+      fnaThresholdCm = 1.0;
+      followUpThresholdCm = 0.5;
     }
     
     desc = {};
@@ -115,8 +109,8 @@ class TIRADSReport {
         "Description:\n"
         "${dictToBullet(desc)}\n\n"
         "Suggested Actions:\n"
-        "- FNA: ${shouldFna}\n"
-        "- Follow-up: ${shouldFollow}";
+        "- ${fnaThresholdCm == double.infinity ? 'No FNA needed' : 'FNA if size ≥ $fnaThresholdCm cm'}\n"
+        "- ${followUpThresholdCm == double.infinity ? 'No follow-up needed' : 'Follow-up if size ≥ $followUpThresholdCm cm'}";
     
     return reportStr;
   }
@@ -141,32 +135,12 @@ class TIRADSReport {
   /// String
   ///     Markdown formatted string with suggested actions
   String toMdStrActions() {
-    final int ptTot = pt["points_tot"];
-    String fna;
-    String follow;
+    String fnaThreshold = fnaThresholdCm == double.infinity ? 'N/A' : '${fnaThresholdCm} cm';
+    String followUpThreshold = followUpThresholdCm == double.infinity ? 'N/A' : '${followUpThresholdCm} cm';
     
-    if ((shouldFna == "?" || shouldFollow == "?") && ptTot >= 3) {
-      if (ptTot >= 7) { // TR5
-        fna = "if ≥ 1 cm";
-        follow = "if ≥ 0.5 cm";
-      } else if (ptTot >= 4) { // TR4
-        fna = "if ≥ 1.5 cm";
-        follow = "if ≥ 1 cm";
-      } else if (ptTot == 3) { // TR3
-        fna = "if ≥ 2.5 cm";
-        follow = "if ≥ 1.5 cm";
-      } else {
-        fna = shouldFna.toString();
-        follow = shouldFollow.toString();
-      }
-    } else {
-      fna = yesNo(shouldFna);
-      follow = yesNo(shouldFollow);
-    }
-            
     final String mdStr = "### Suggested Actions:\n"
-        "- FNA: $fna\n"
-        "- Follow-up: $follow";
+        "- FNA if size ≥ $fnaThreshold\n"
+        "- Follow-up if size ≥ $followUpThreshold";
                  
     return mdStr;
   }
