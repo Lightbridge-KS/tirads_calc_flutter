@@ -18,11 +18,11 @@ mode: 'ask'
 
 1. You assess **five ultrasound categories**:
 
-   * **Composition** (e.g., cystic, solid)
-   * **Echogenicity** (e.g., hyperechoic, hypoechoic)
-   * **Shape** (e.g., taller-than-wide)
-   * **Margin** (e.g., irregular, smooth)
-   * **Echogenic foci** (e.g., microcalcifications)
+   * **Composition** (choose one): e.g., cystic, solid
+   * **Echogenicity** (choose one): e.g., hyperechoic, hypoechoic
+   * **Shape** (choose one): e.g., taller-than-wide
+   * **Margin** (choose one): e.g., irregular, smooth
+   * **Echogenic foci** (choose one or more): e.g., microcalcifications
 
 2. Each feature is assigned **points (0 to 3)**.
 
