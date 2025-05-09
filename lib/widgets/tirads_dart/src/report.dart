@@ -53,7 +53,7 @@ class TIRADSReport {
   ///     - "lob-irreg": Lobulated or Irregular (2 points)
   ///     - "extra": Extrathyroidal extension (3 points)
   /// 
-  /// echogenicFoci : List<String>
+  /// echogenicFoci : `List<String>`
   ///     List of echogenic foci values. Multiple values can be specified, but without duplicates.
   ///     Acceptable values:
   ///     - "none-comet": None or Large comet-tail artifacts (0 points)
@@ -137,8 +137,8 @@ class TIRADSReport {
   String toMdStrActions() {
     
     final String mdStr = "### Suggested Actions:\n"
-        "- ${fnaThresholdCm == double.infinity ? 'No FNA needed' : 'FNA if size ≥ ${fnaThresholdCm} cm'}\n"
-        "- ${followUpThresholdCm == double.infinity ? 'No follow-up needed' : 'Follow-up if size ≥ ${followUpThresholdCm} cm'}";
+        "- ${fnaThresholdCm == double.infinity ? 'No FNA needed' : 'FNA if size ≥ $fnaThresholdCm cm'}\n"
+        "- ${followUpThresholdCm == double.infinity ? 'No follow-up needed' : 'Follow-up if size ≥ $followUpThresholdCm cm'}";
                  
     return mdStr;
   }

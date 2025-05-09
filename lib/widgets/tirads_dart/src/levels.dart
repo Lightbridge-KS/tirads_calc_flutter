@@ -15,12 +15,12 @@ import 'points.dart';
 ///     The shape value
 /// margin : String
 ///     The margin value
-/// echogenic_foci : List<String>
+/// echogenic_foci : `List<String>`
 ///     List of echogenic foci values
 ///
 /// Returns
 /// -------
-/// Map<String, String>
+/// `Map<String, String>`
 ///     A map containing the TIRADS level and description
 Map<String, String> getTiradsLevels(String composition, String echogenicity, 
                                   String shape, String margin, List<String> echogenicFoci) {

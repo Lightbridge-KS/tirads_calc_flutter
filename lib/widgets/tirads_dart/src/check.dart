@@ -11,7 +11,7 @@
 ///     The shape value
 /// margin : String
 ///     The margin value
-/// echogenic_foci : List<String>
+/// echogenic_foci : `List<String>`
 ///     List of echogenic foci values
 ///
 /// Returns

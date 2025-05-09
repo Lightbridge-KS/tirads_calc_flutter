@@ -3,7 +3,7 @@
 /// 
 /// Parameters
 /// ----------
-/// d : Map<String, dynamic>
+/// d : `Map<String, dynamic>`
 ///     The map to convert to bullet points
 /// 
 /// Returns

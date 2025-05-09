@@ -14,12 +14,12 @@ import 'map.dart';
 ///     The shape value
 /// margin : String
 ///     The margin value
-/// echogenic_foci : List<String>
+/// echogenic_foci : `List<String>`
 ///     List of echogenic foci values
 ///
 /// Returns
 /// -------
-/// Map<String, dynamic>
+/// `Map<String, dynamic>`
 ///     A map containing points by category, total points, and input categories
 Map<String, dynamic> getTiradsPoints(String composition, String echogenicity, 
                                    String shape, String margin, List<String> echogenicFoci) {
