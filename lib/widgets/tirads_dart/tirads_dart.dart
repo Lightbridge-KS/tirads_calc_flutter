@@ -3,7 +3,7 @@
 ///
 /// This library provides functionality to calculate the Thyroid Imaging Reporting
 /// and Data System (TI-RADS) scores and risk levels for thyroid nodules.
-library tirads_dart;
+library;
 
 export 'src/report.dart';
 export 'src/points.dart';
