@@ -63,6 +63,10 @@ flutter:
     - images/question1.png
     - images/question2.png
     - images/question3.png
+    - images/composition.png
+    - images/echogenicity.png
+    - images/shape.png
+    - images/margin.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

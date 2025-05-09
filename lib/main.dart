@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'widgets/question_tab_container.dart';
-import 'widgets/choices_dummy.dart';
 import 'widgets/radiolisttile_mcq.dart';
+
+import 'widgets/tirads_dart/tirads_dart.dart';
 
 void main() => runApp(const TabBarApp());
 
@@ -24,32 +26,52 @@ class MultipleQuestionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Multiple Questions'),
+        title: const Text('ACR TI-RADS Calculator'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
           const SizedBox(height: 24.0),
           QuestionTabContainer(
-            questionTitle: 'Question 1',
+            questionTitle: 'Composition',
             inputForm: RadioListTileMcq(
-              title: 'Which imaging modality uses a strong magnetic field to generate images?',
-              options: choicesDummy["question_1"]!,
+              options: tiradsMapDesc["composition"]!,
             ),
             image: const Image(
-              image: AssetImage('images/question1.png'),
+              image: AssetImage('images/composition.png'),
               fit: BoxFit.contain,
             ),
           ),
           const SizedBox(height: 24.0),
           QuestionTabContainer(
-            questionTitle: 'Question 2',
+            questionTitle: 'Echogenicity',
             inputForm: RadioListTileMcq(
-              title: 'What is the primary advantage of CT scanning over conventional radiography?',
-              options: choicesDummy["question_2"]!,
+              options: tiradsMapDesc["echogenicity"]!,
             ),
             image: const Image(
-              image: AssetImage('images/question2.png'),
+              image: AssetImage('images/echogenicity.png'),
+              fit: BoxFit.contain,
+            ),
+          ),
+          const SizedBox(height: 24.0),
+          QuestionTabContainer(
+            questionTitle: 'Shape',
+            inputForm: RadioListTileMcq(
+              options: tiradsMapDesc["shape"]!,
+            ),
+            image: const Image(
+              image: AssetImage('images/shape.png'),
+              fit: BoxFit.contain,
+            ),
+          ),
+          const SizedBox(height: 24.0),
+          QuestionTabContainer(
+            questionTitle: 'Margin',
+            inputForm: RadioListTileMcq(
+              options: tiradsMapDesc["margin"]!,
+            ),
+            image: const Image(
+              image: AssetImage('images/margin.png'),
               fit: BoxFit.contain,
             ),
           ),
