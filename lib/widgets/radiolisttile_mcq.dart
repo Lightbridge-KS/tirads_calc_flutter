@@ -204,7 +204,7 @@ class _RadioListTileMcqState extends State<RadioListTileMcq> {
             );
           }),
 
-          // Add a display of the currently selected value (Remove this in production)
+          // Add a display of the currently selected value (if enabled)
           if (widget.showSelectionDisplay)
             Padding(
               padding: const EdgeInsets.all(16.0),
