@@ -33,9 +33,9 @@ class MultipleQuestionsPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         children: [
           const SizedBox(height: 24.0),
-
-          // Composition
-
+          /*
+          === Composition ===
+          */
           QuestionTabContainer(
             questionTitle: 'Composition',
             inputForm: RadioListTileMcq(
@@ -47,9 +47,9 @@ class MultipleQuestionsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24.0),
-
-          // Echogenicity
-
+          /*
+          === Echogenicity ===
+          */
           QuestionTabContainer(
             questionTitle: 'Echogenicity',
             inputForm: RadioListTileMcq(
@@ -61,9 +61,9 @@ class MultipleQuestionsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24.0),
-
-          // Shape 
-
+          /*
+          === Shape ===
+          */
           QuestionTabContainer(
             questionTitle: 'Shape',
             inputForm: RadioListTileMcq(
@@ -75,9 +75,9 @@ class MultipleQuestionsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24.0),
-
-          // Margin
-
+          /*
+          === Margin ===
+          */
           QuestionTabContainer(
             questionTitle: 'Margin',
             inputForm: RadioListTileMcq(
@@ -89,8 +89,9 @@ class MultipleQuestionsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24.0),
-
-          // Echogenic foci
+          /*
+          === Echogenic Foci ===
+          */
           QuestionTabContainer(
             questionTitle: 'Echogenic Foci',
             inputForm: CheckboxListTileMcq(
