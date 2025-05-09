@@ -135,12 +135,10 @@ class TIRADSReport {
   /// String
   ///     Markdown formatted string with suggested actions
   String toMdStrActions() {
-    String fnaThreshold = fnaThresholdCm == double.infinity ? 'N/A' : '${fnaThresholdCm} cm';
-    String followUpThreshold = followUpThresholdCm == double.infinity ? 'N/A' : '${followUpThresholdCm} cm';
     
     final String mdStr = "### Suggested Actions:\n"
-        "- FNA if size ≥ $fnaThreshold\n"
-        "- Follow-up if size ≥ $followUpThreshold";
+        "- ${fnaThresholdCm == double.infinity ? 'No FNA needed' : 'FNA if size ≥ ${fnaThresholdCm} cm'}\n"
+        "- ${followUpThresholdCm == double.infinity ? 'No follow-up needed' : 'Follow-up if size ≥ ${followUpThresholdCm} cm'}";
                  
     return mdStr;
   }
