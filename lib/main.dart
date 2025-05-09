@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'widgets/question_tab_container.dart';
 import 'widgets/radiolisttile_mcq.dart';
+import 'widgets/checkboxlisttile_mcq.dart'; 
 
 import 'widgets/tirads_dart/tirads_dart.dart';
 
@@ -32,6 +33,9 @@ class MultipleQuestionsPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         children: [
           const SizedBox(height: 24.0),
+
+          // Composition
+
           QuestionTabContainer(
             questionTitle: 'Composition',
             inputForm: RadioListTileMcq(
@@ -43,6 +47,9 @@ class MultipleQuestionsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24.0),
+
+          // Echogenicity
+
           QuestionTabContainer(
             questionTitle: 'Echogenicity',
             inputForm: RadioListTileMcq(
@@ -54,6 +61,9 @@ class MultipleQuestionsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24.0),
+
+          // Shape 
+
           QuestionTabContainer(
             questionTitle: 'Shape',
             inputForm: RadioListTileMcq(
@@ -65,6 +75,9 @@ class MultipleQuestionsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24.0),
+
+          // Margin
+
           QuestionTabContainer(
             questionTitle: 'Margin',
             inputForm: RadioListTileMcq(
@@ -75,6 +88,21 @@ class MultipleQuestionsPage extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
+          const SizedBox(height: 24.0),
+
+          // Echogenic foci
+          QuestionTabContainer(
+            questionTitle: 'Echogenic Foci',
+            inputForm: CheckboxListTileMcq(
+              options: tiradsMapDesc["echogenic_foci"]!,
+              showSelectionDisplay: true,
+            ),
+            image: const Image(
+              image: AssetImage('images/echogenic_foci.png'),
+              fit: BoxFit.contain,
+            ),
+          ),
+          const SizedBox(height: 24.0),
         ],
       ),
     );
