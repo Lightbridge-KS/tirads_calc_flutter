@@ -1,0 +1,48 @@
+
+image:
+  - macOS
+
+skip_branch_with_pr: true
+stack: python 3.10 # Required for Flutter setup
+
+environment:
+  GITHUB_TOKEN:
+    secure: cq5sCIvjUPBY6V+SOp37WWDtXpbhBseYyM+suUtUezAGx9c+JB85Y8NEkGnQUnUNzPq9ZKsBndiTmxWVpb5LlUfRd4sryyRTylvdde5fgP3tgJd89lxJTCMAcPODME1t
+
+init:
+  - git config --global core.autocrlf input
+
+install:
+  # Install Flutter
+  - curl -o flutter_macos_arm64.zip https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_arm64_3.29.3-stable.zip
+  - unzip -q flutter_macos_arm64.zip
+  - export PATH="$PATH:`pwd`/flutter/bin"
+  # Flutter doctor for debugging build issues
+  - flutter doctor -v
+  # Get Flutter dependencies
+  - flutter pub get
+
+build_script:
+  # Build macOS app
+  - flutter build macos --release
+
+# test_script:
+#   - flutter test
+
+after_build:
+  # Create archive of the built app
+  - tar -czvf tirads_calc_flutter-macos.tar.gz -C build/macos/Build/Products/Release tirads_calc_flutter.app
+
+artifacts:
+  - path: tirads_calc_flutter-macos.tar.gz
+    name: macOS App
+
+# Publish artifacts to GitHub Releases on "tag" builds
+deploy:
+  provider: GitHub
+  auth_token: $(GITHUB_TOKEN)
+  artifact: tirads_calc_flutter-macos.tar.gz
+  draft: false
+  prerelease: false
+  on:
+    APPVEYOR_REPO_TAG: true # Deploy only when tag is pushed
