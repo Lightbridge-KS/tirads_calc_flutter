@@ -133,6 +133,7 @@ class _MultipleQuestionsPageState extends State<MultipleQuestionsPage> {
             inputForm: RadioListTileMcq(
               options: tiradsMapDesc["composition"]!,
               controller: _compositionController,
+              showSelectionDisplay: false,
             ),
             image: const Image(
               image: AssetImage('images/composition.png'),
@@ -148,6 +149,7 @@ class _MultipleQuestionsPageState extends State<MultipleQuestionsPage> {
             inputForm: RadioListTileMcq(
               options: tiradsMapDesc["echogenicity"]!,
               controller: _echogenicityController,
+              showSelectionDisplay: false,
             ),
             image: const Image(
               image: AssetImage('images/echogenicity.png'),
@@ -163,6 +165,7 @@ class _MultipleQuestionsPageState extends State<MultipleQuestionsPage> {
             inputForm: RadioListTileMcq(
               options: tiradsMapDesc["shape"]!,
               controller: _shapeController,
+              showSelectionDisplay: false,
             ),
             image: const Image(
               image: AssetImage('images/shape.png'),
@@ -178,6 +181,7 @@ class _MultipleQuestionsPageState extends State<MultipleQuestionsPage> {
             inputForm: RadioListTileMcq(
               options: tiradsMapDesc["margin"]!,
               controller: _marginController,
+              showSelectionDisplay: false,
             ),
             image: const Image(
               image: AssetImage('images/margin.png'),
@@ -192,7 +196,7 @@ class _MultipleQuestionsPageState extends State<MultipleQuestionsPage> {
             questionTitle: 'Echogenic Foci',
             inputForm: CheckboxListTileMcq(
               options: tiradsMapDesc["echogenic_foci"]!,
-              showSelectionDisplay: true,
+              showSelectionDisplay: false,
               controller: _echogenicFociController,
             ),
             image: const Image(
@@ -201,7 +205,13 @@ class _MultipleQuestionsPageState extends State<MultipleQuestionsPage> {
             ),
           ),
           const SizedBox(height: 24.0),
-          // Add a section to display the TI-RADS report if available
+
+          /*
+          ==============================
+          === Display TI-RADS Output ===
+          ==============================
+          */
+
           if (_tiradsReport != null) ...[
             const SizedBox(height: 24.0),
             Card(
