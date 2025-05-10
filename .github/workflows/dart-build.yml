@@ -81,13 +81,6 @@ jobs:
           & "C:\Program Files (x86)\Inno Setup 6\iscc.exe" /O"build\windows\installer" /DAppVersion=$env:APP_VERSION "windows\installer\inno_setup.iss"
           Get-ChildItem -Path "build\windows\installer"
 
-      # Package Windows app
-      # - name: Package Windows app
-      #   if: matrix.os == 'windows-latest'
-      #   run: |
-      #     cd build\windows\x64\runner\Release
-      #     Compress-Archive -Path * -DestinationPath tirads_calc_flutter-windows.zip
-      #     Get-ChildItem
 
       # Archive the built applications
       - name: Archive macOS build
@@ -103,13 +96,6 @@ jobs:
         with:
           name: windows-installer
           path: build\windows\installer\*.exe
-
-      # - name: Archive Windows build
-      #   if: matrix.os == 'windows-latest'
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: windows-build
-      #     path: build\windows\x64\runner\Release\*.zip
 
 
       # Create GitHub Release when a tag is pushed
