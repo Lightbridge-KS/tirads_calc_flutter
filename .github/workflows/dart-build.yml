@@ -1,7 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+# Dart Install & Flutter Application Build GitHub Action
 
 name: Dart
 
@@ -12,7 +9,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -20,7 +17,7 @@ jobs:
         sdk: [3.7.2]
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up dart
         uses: dart-lang/setup-dart@v1
         with:
@@ -38,17 +35,36 @@ jobs:
         run: | 
             flutter pub get
             flutter --version
-      # Uncomment this step to verify the use of 'dart format' on each commit.
-      # - name: Verify formatting
-      #   run: dart format --output=none --set-exit-if-changed .
-
-      # Consider passing '--fatal-infos' for slightly stricter analysis.
-    #   - name: Analyze project source
-    #     run: dart analyze
-
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-    #   - name: Run tests
-    #     run: dart test
- 
+            
+      # Enable the required platform
+      - name: Enable platform support
+        if: matrix.os == 'windows-latest'
+        run: flutter config --enable-windows-desktop
+        
+      - name: Enable macOS platform support
+        if: matrix.os == 'macos-latest'
+        run: flutter config --enable-macos-desktop
+            
+      # Platform-specific build commands
+      - name: Build macOS application
+        if: matrix.os == 'macos-latest'
+        run: flutter build macos --release
+        
+      - name: Build Windows application
+        if: matrix.os == 'windows-latest'
+        run: flutter build windows --release
+        
+      # Archive the built applications
+      - name: Archive macOS build
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-build
+          path: build/macos/Build/Products/Release/*.app
+          
+      - name: Archive Windows build
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-build
+          path: build/windows/runner/Release/
