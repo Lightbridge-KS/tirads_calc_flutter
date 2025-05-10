@@ -48,6 +48,29 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: flutter config --enable-macos-desktop
 
+      # Platform-specific build commands
+      - name: Build macOS application
+        if: matrix.os == 'macos-latest'
+        run: flutter build macos --release
+        
+      - name: Build Windows application
+        if: matrix.os == 'windows-latest'
+        run: flutter build windows --release
+
+      # Archive the built applications
+      - name: Archive macOS build
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-build
+          path: build/macos/Build/Products/Release/*.app
+          
+      - name: Archive Windows build
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: build/windows/runner/Release/
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
       #   run: dart format --output=none --set-exit-if-changed .
