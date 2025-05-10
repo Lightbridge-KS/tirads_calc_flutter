@@ -12,7 +12,7 @@ on:
 
 permissions:
   contents: write  # This gives permission to create releases
-  
+
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -78,7 +78,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            build\windows\installer\*.exe
+            build/windows/installer/*.exe
           name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
