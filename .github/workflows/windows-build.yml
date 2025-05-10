@@ -79,7 +79,7 @@ jobs:
         with:
           files: |
             build/windows/installer/*.exe
-          name: Release ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
           draft: false
           prerelease: false
           generate_release_notes: false
