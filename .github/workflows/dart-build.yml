@@ -1,9 +1,6 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+# Dart & Flutter Application Build GitHub Action
 
-name: Dart
+name: Dart & Flutter Build
 
 on:
   push:
