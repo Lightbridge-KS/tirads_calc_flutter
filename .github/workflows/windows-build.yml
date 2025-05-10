@@ -81,5 +81,5 @@ jobs:
             build/windows/installer/*.exe
           name: ${{ github.ref_name }}
           draft: false
-          prerelease: false
+          prerelease: true
           generate_release_notes: false

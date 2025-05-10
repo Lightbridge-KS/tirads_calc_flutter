@@ -66,5 +66,5 @@ jobs:
             build/macos/Build/Products/Release/*.zip
           name: ${{ github.ref_name }}
           draft: false
-          prerelease: false
+          prerelease: true
           generate_release_notes: false
