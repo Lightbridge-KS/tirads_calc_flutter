@@ -56,6 +56,13 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: flutter build windows --release
 
+      # Package Windows app
+      - name: Package Windows app
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd build\windows\x64\runner\Release
+          powershell Compress-Archive -Path * -DestinationPath tirads_calc_flutter-windows.zip  
+
       # Archive the built applications
       - name: Archive macOS build
         if: matrix.os == 'macos-latest'
@@ -89,7 +96,7 @@ jobs:
         if: matrix.os == 'windows-latest' && startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            build\windows\x64\runner\Release\*.exe
+            build\windows\x64\runner\Release\*.zip
           name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
