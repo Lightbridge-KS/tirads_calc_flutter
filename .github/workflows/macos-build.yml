@@ -47,7 +47,7 @@ jobs:
       - name: Package macOS app
         run: |
           cd build/macos/Build/Products/Release
-          zip -r tirads_calc_flutter-macos.zip *.app
+          zip -r TIRADSCalculator-macos.zip *.app
 
       # Archive the built application
       - name: Archive macOS build
