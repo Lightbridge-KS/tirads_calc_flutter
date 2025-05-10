@@ -35,17 +35,36 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  
+
+flutter_launcher_icons:
+  # android: "launcher_icon"  # Icon name for Android
+  ios: false                 # icon for iOS
+  image_path: "assets/icon/icon.png"  # Path to your icon file
+  min_sdk_android: 21       # android min sdk min:16, default 21
+  web:
+    generate: false
+    image_path: "assets/icon/icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/icon/icon.png"
+    icon_size: 48           # Windows icon size
+  macos:
+    generate: true
+    image_path: "assets/icon/icon.png"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
