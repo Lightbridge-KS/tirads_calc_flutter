@@ -43,17 +43,19 @@ jobs:
       - name: Build macOS application
         run: flutter build macos --release
 
+      # Package macOS app
+      - name: Package macOS app
+        run: |
+          cd build/macos/Build/Products/Release
+          zip -r tirads_calc_flutter-macos.zip *.app
+
       # Archive the built application
       - name: Archive macOS build
         uses: actions/upload-artifact@v4
         with:
           name: macos-build
-          path: build/macos/Build/Products/Release/*.app
+          path: build/macos/Build/Products/Release/*.zip
 
-      - name: Package macOS app
-        run: |
-          cd build/macos/Build/Products/Release
-          zip -r tirads_calc_flutter-macos.zip *.app
 
       # Create GitHub Release when a tag is pushed
       - name: Release macOS app
@@ -61,7 +63,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            build/macos/Build/Products/Release/*.app/**/*
+            build/macos/Build/Products/Release/*.zip
           name: ${{ github.ref_name }}
           draft: false
           prerelease: false
