@@ -50,6 +50,11 @@ jobs:
           name: macos-build
           path: build/macos/Build/Products/Release/*.app
 
+      - name: Package macOS app
+        run: |
+          cd build/macos/Build/Products/Release
+          zip -r tirads_calc_flutter-macos.zip *.app
+
       # Create GitHub Release when a tag is pushed
       - name: Release macOS app
         uses: softprops/action-gh-release@v2
