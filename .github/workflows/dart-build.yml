@@ -38,6 +38,16 @@ jobs:
         run: | 
             flutter pub get
             flutter --version
+
+      # Enable the required platform
+      - name: Enable Windows platform support
+        if: matrix.os == 'windows-latest'
+        run: flutter config --enable-windows-desktop
+        
+      - name: Enable macOS platform support
+        if: matrix.os == 'macos-latest'
+        run: flutter config --enable-macos-desktop
+
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
       #   run: dart format --output=none --set-exit-if-changed .
