@@ -23,11 +23,8 @@ jobs:
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
+      - run: dart --version
 
-      - name: Install dependencies
-        run: | 
-            dart pub get
-            dart --version
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -35,6 +32,10 @@ jobs:
             flutter-version-file: pubspec.yaml # path to pubspec.yaml
       - run: flutter --version
 
+      - name: Install dependencies
+        run: | 
+            flutter pub get
+            flutter --version
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
       #   run: dart format --output=none --set-exit-if-changed .
