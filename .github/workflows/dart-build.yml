@@ -61,8 +61,8 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           cd build\windows\x64\runner\Release
-          powershell Compress-Archive -Path * -DestinationPath tirads_calc_flutter-windows.zip
-          ls -a
+          Compress-Archive -Path * -DestinationPath tirads_calc_flutter-windows.zip
+          Get-ChildItem
 
       # Archive the built applications
       - name: Archive macOS build
