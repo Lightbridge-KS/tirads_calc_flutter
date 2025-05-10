@@ -38,6 +38,20 @@ jobs:
             flutter pub get
             flutter --version
 
+      # Extract version from pubspec.yaml for the installer
+      - name: Extract version
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          $pubspecContent = Get-Content -Path pubspec.yaml -Raw
+          if ($pubspecContent -match "version:\s*([\d\.]+)(\+\d+)?") {
+            $version = $Matches[1]
+            echo "APP_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Append
+          } else {
+            echo "APP_VERSION=1.0.0" | Out-File -FilePath $Env:GITHUB_ENV -Append
+          }
+
+
       # Enable the required platform
       - name: Enable Windows platform support
         if: matrix.os == 'windows-latest'
@@ -56,13 +70,24 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: flutter build windows --release
 
-      # Package Windows app
-      - name: Package Windows app
+      # Package Windows app with Inno Setup
+      - name: Install Inno Setup
+        if: matrix.os == 'windows-latest'
+        run: choco install innosetup -y
+        
+      - name: Compile Installer
         if: matrix.os == 'windows-latest'
         run: |
-          cd build\windows\x64\runner\Release
-          Compress-Archive -Path * -DestinationPath tirads_calc_flutter-windows.zip
-          Get-ChildItem
+          & "C:\Program Files (x86)\Inno Setup 6\iscc.exe" /O"build\windows\installer" /DAppVersion=$env:APP_VERSION "windows\installer\inno_setup.iss"
+          Get-ChildItem -Path "build\windows\installer"
+
+      # Package Windows app
+      # - name: Package Windows app
+      #   if: matrix.os == 'windows-latest'
+      #   run: |
+      #     cd build\windows\x64\runner\Release
+      #     Compress-Archive -Path * -DestinationPath tirads_calc_flutter-windows.zip
+      #     Get-ChildItem
 
       # Archive the built applications
       - name: Archive macOS build
@@ -71,13 +96,20 @@ jobs:
         with:
           name: macos-build
           path: build/macos/Build/Products/Release/*.app
-          
-      - name: Archive Windows build
+
+      - name: Archive Windows installer
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: windows-build
-          path: build\windows\x64\runner\Release\*.zip
+          name: windows-installer
+          path: build\windows\installer\*.exe
+
+      # - name: Archive Windows build
+      #   if: matrix.os == 'windows-latest'
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: windows-build
+      #     path: build\windows\x64\runner\Release\*.zip
 
 
       # Create GitHub Release when a tag is pushed
@@ -97,7 +129,7 @@ jobs:
         if: matrix.os == 'windows-latest' && startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            build\windows\x64\runner\Release\*.zip
+            build\windows\x64\runner\Release\*.exe
           name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
