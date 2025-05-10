@@ -41,7 +41,8 @@ jobs:
             $version = $Matches[1]
             echo "APP_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Append
           } else {
-            echo "APP_VERSION=1.0.0" | Out-File -FilePath $Env:GITHUB_ENV -Append
+            Write-Error "Version field not found in pubspec.yaml. Please ensure the version is correctly specified."
+            exit 1
           }
 
       # Enable Windows platform
