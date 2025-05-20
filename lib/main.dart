@@ -155,6 +155,58 @@ class _MultipleQuestionsPageState extends State<MultipleQuestionsPage> {
             const ListTile(title: Text('This calculator was implemented using the above algorithm.'))
           ],
         ),
+          /*
+          ==============================
+          === Display TI-RADS Output ===
+          ==============================
+          */
+          if (_tiradsReport != null) ...[
+            const SizedBox(height: 24.0),
+            Card(
+              elevation: 4.0,
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'TI-RADS Level: ${_tiradsReport!.lv['tr']}',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      'Risk Level: ${_tiradsReport!.lv['desc']}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      'Total Points: ${_tiradsReport!.pt['points_tot']}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const Divider(),
+                    Text(
+                      'Suggested Actions:',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 4.0),
+                    Text(
+                      _tiradsReport!.fnaThresholdCm == double.infinity 
+                          ? '• No FNA needed' 
+                          : '• FNA if size ≥ ${_tiradsReport!.fnaThresholdCm} cm',
+                    ),
+                    const SizedBox(height: 4.0),
+                    Text(
+                      _tiradsReport!.followUpThresholdCm == double.infinity 
+                          ? '• No follow-up needed' 
+                          : '• Follow-up if size ≥ ${_tiradsReport!.followUpThresholdCm} cm',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            
+          ],
           const SizedBox(height: 24.0),
           /*
           === Composition ===
@@ -237,59 +289,7 @@ class _MultipleQuestionsPageState extends State<MultipleQuestionsPage> {
           ),
           const SizedBox(height: 24.0),
 
-          /*
-          ==============================
-          === Display TI-RADS Output ===
-          ==============================
-          */
 
-          if (_tiradsReport != null) ...[
-            const SizedBox(height: 24.0),
-            Card(
-              elevation: 4.0,
-              margin: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'TI-RADS Level: ${_tiradsReport!.lv['tr']}',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      'Risk Level: ${_tiradsReport!.lv['desc']}',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      'Total Points: ${_tiradsReport!.pt['points_tot']}',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const Divider(),
-                    Text(
-                      'Suggested Actions:',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      _tiradsReport!.fnaThresholdCm == double.infinity 
-                          ? '• No FNA needed' 
-                          : '• FNA if size ≥ ${_tiradsReport!.fnaThresholdCm} cm',
-                    ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      _tiradsReport!.followUpThresholdCm == double.infinity 
-                          ? '• No follow-up needed' 
-                          : '• Follow-up if size ≥ ${_tiradsReport!.followUpThresholdCm} cm',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 24.0),
-          ],
         ],
       ),
     );
