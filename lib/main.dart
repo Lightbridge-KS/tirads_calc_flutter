@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:window_manager/window_manager.dart'; 
 
 import 'widgets/question_tab_container.dart';
 import 'widgets/radiolisttile_mcq.dart';
@@ -7,7 +8,25 @@ import 'widgets/checkboxlisttile_mcq.dart';
 
 import 'widgets/tirads_dart/tirads_dart.dart';
 
-void main() => runApp(const TabBarApp());
+void main() async { 
+  WidgetsFlutterBinding.ensureInitialized(); 
+  await windowManager.ensureInitialized(); 
+
+  WindowOptions windowOptions = const WindowOptions(
+    size: Size(570, 815), // Set your desired initial size
+    center: true,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: false,
+    titleBarStyle: TitleBarStyle.normal,
+  );
+  windowManager.setMinimumSize(Size(530, 530));
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
+
+  runApp(const TabBarApp());
+}
 
 class TabBarApp extends StatelessWidget {
   const TabBarApp({super.key});
