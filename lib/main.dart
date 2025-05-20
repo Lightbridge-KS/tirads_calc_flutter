@@ -143,6 +143,18 @@ class _MultipleQuestionsPageState extends State<MultipleQuestionsPage> {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
+          /*
+          === TI-RADS Chart ===
+          */
+          ExpansionTile(
+          title: const Text('TI-RADS Chart'),
+          subtitle: const Text('Expand to see quick reference'),
+          controlAffinity: ListTileControlAffinity.leading,
+          children: <Widget>[
+            Image.asset('images/tirads_chart.png'),
+            const ListTile(title: Text('This calculator was implemented using the above algorithm.'))
+          ],
+        ),
           const SizedBox(height: 24.0),
           /*
           === Composition ===
