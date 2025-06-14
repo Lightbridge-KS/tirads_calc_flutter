@@ -26,7 +26,7 @@ jobs:
         run: flutter config --enable-web
 
       - name: Build web app
-        run: flutter build web --release --web-renderer html
+        run: flutter build web
 
       # Deploy to Netlify
       - name: Deploy to Netlify
