@@ -44,7 +44,7 @@ flutter_launcher_icons:
   image_path: "assets/icon/icon.png"  # Path to your icon file
   min_sdk_android: 21       # android min sdk min:16, default 21
   web:
-    generate: false
+    generate: true
     image_path: "assets/icon/icon.png"
     background_color: "#hexcode"
     theme_color: "#hexcode"

@@ -1,31 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:window_manager/window_manager.dart'; 
+
+// Conditional imports - only import window_manager on non-web platforms
+import 'window_manager_stub.dart' if (dart.library.io) 'package:window_manager/window_manager.dart';
 
 import 'widgets/question_tab_container.dart';
 import 'widgets/radiolisttile_mcq.dart';
 import 'widgets/checkboxlisttile_mcq.dart'; 
-
 import 'widgets/tirads_dart/tirads_dart.dart';
 
 void main() async { 
   WidgetsFlutterBinding.ensureInitialized(); 
-  await windowManager.ensureInitialized(); 
-
-  WindowOptions windowOptions = const WindowOptions(
-    size: Size(570, 815), // Set your desired initial size
-    center: true,
-    backgroundColor: Colors.transparent,
-    skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.normal,
-  );
-  windowManager.setMinimumSize(Size(530, 530));
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-  });
+  
+  // Only configure window manager for desktop platforms
+  if (!kIsWeb) {
+    await initializeWindow();
+  }
 
   runApp(const TabBarApp());
+}
+
+// Window initialization function that only runs on desktop
+Future<void> initializeWindow() async {
+  if (!kIsWeb) {
+    await windowManager.ensureInitialized(); 
+
+    WindowOptions windowOptions = const WindowOptions(
+      size: Size(570, 815), // Set your desired initial size
+      center: true,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      titleBarStyle: TitleBarStyle.normal,
+    );
+    windowManager.setMinimumSize(Size(530, 530));
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
 }
 
 class TabBarApp extends StatelessWidget {
