@@ -56,6 +56,14 @@ jobs:
       - name: Build Windows application
         run: flutter build windows --release
 
+      # Debug: List all files in the Release directory
+      - name: List build contents
+        run: |
+          Write-Host "Contents of Release directory:"
+          Get-ChildItem -Path "build\windows\x64\runner\Release" -Recurse | Select-Object Name, FullName
+          Write-Host "`nDLL files specifically:"
+          Get-ChildItem -Path "build\windows\x64\runner\Release\*.dll" | Select-Object Name
+                  
       # Package Windows app with Inno Setup
       - name: Install Inno Setup
         run: choco install innosetup -y
