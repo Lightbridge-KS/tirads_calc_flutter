@@ -10,7 +10,7 @@
 **Desktop (Windows & MacOS):** see [GitHub Release](https://github.com/Lightbridge-KS/tirads_calc_flutter/releases)
 
 
-**Web app:** <https://tirads-calc.netlify.app>
+**Web app:** <https://tirads-calc-lightbridge.netlify.app>
 
 ---
 
